@@ -53,6 +53,23 @@ int main(int argc, const char* argv[])
 		assert(! (GF256(94).pow(i) == GF256(0)) );
 	}
 
+	assert(GF256(0x7b).pow(1) == GF256(0x7b));
+
+	assert(GF256(0x7b).pow(2) == GF256(0x99));
+	assert(GF256(0x7b)*GF256(0x7b) == GF256(0x99));
+	assert(GF256(0x7b).pow(3) == GF256(0xb6));
+	assert(GF256(0x7b)*GF256(0x7b)*GF256(0x7b) == GF256(0xb6));
+	assert(GF256(0x7b).pow(4) == GF256(0xc0));
+	assert(GF256(0x7b).pow(5) == GF256(0x20));
+
+	/// test on manualy computed random polynomial of degree 3
+	assert(GF256(0x0e) * GF256(0x7b).pow(1) == GF256(0xf4));
+	assert(GF256(0x72) * GF256(0x7b).pow(2) == GF256(0x8b));
+	assert(GF256(0xa1) * GF256(0x7b).pow(3) == GF256(0x43));
+	assert(GF256(0x11) + GF256(0x0e) * GF256(0x7b) + GF256(0x72) * GF256(0x7b).pow(2) + GF256(0xa1) * GF256(0x7b).pow(3) == GF256(0x2d));
+
+
+
 	std::cout << "test \'" << argv[0] << "\' completed successfully" << std::endl;
 
 	return 0;
