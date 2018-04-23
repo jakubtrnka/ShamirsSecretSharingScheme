@@ -21,12 +21,14 @@ namespace Shamir
 class GFpolynomial
 {
 	private:
-		int m_degree;
+		//int m_degree;
 		std::vector<uint8_t> m_coefficients; 
+		void polyInit(size_t _degree);
 	public:
 		GFpolynomial(uint8_t _secret, int _degree); // creates new random polynomial containing secret _secret;
 		GFpolynomial(const std::vector<Shamir::xy_point> & _points, bool simplified = true); //restores polynomial from points
 		Shamir::xy_point	getShare(int _index) const;	// creates point-representation of Shamir's share at point x = _index
+		uint8_t			getSecret() const;
 };
 
 
