@@ -98,7 +98,7 @@ GF256   GF256::operator / (const GF256 & x) const
         if ( element == 0 )
                 return GF256(0);
 
-        uint8_t log1, log2;
+        uint8_t log1(0), log2(0);
         bool log1set(false), log2set(false);
         for (size_t i=0; i<powers.size(); ++i)
         {
