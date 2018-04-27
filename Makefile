@@ -1,7 +1,7 @@
 CXX=g++
-CXXFLAGS=-Wall -pedantic -std=c++14 -I.
+CXXFLAGS=-Wall -pedantic -std=c++17 -I.
 LD=g++
-LDFLAGS=-Wall -pedantic -std=c++14
+LDFLAGS=-Wall -pedantic -std=c++17
 
 shamirmulti_test: shamirmulti_test.o shamirmulti.o oneblockshamir.o multiblock.o rijndael.o get_insecure_randomness.o sha256.o
 	$(LD) $(LDFLAGS) -o $@ $^

@@ -83,7 +83,7 @@ checksummed16::checksummed16(const std::vector<uint8_t> & data, size_t bits) : s
 
 share::share(const std::vector<uint8_t> & p) {
 	if (p.size() < 5) throw "invalid share packet";
-	checksummed16 payload(p, p.size() * 8 - 6);
+	checksummed16 payload(p, p.size() * 8 - 6); /// verifies checksum
 	if (!payload.deserialize()) throw "checksum verification failed";
 	uint16_t overflower(0);
 	uint8_t * tmp_ar = reinterpret_cast<uint8_t *>(&overflower);
