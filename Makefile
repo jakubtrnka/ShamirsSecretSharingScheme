@@ -3,7 +3,7 @@ CXXFLAGS=-Wall -pedantic -std=c++17 -I.
 LD=g++
 LDFLAGS=-Wall -pedantic -std=c++17
 
-wordlist_test: wordlist_test.o wordlist.o
+wordlist_test: wordlist_test.o wordlist.o sha256.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 shamirmulti_test: shamirmulti_test.o shamirmulti.o oneblockshamir.o multiblock.o rijndael.o get_insecure_randomness.o sha256.o
@@ -22,7 +22,7 @@ rijndael_test: rijndael.o rijndael_test.o
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 wordlist_test.o: wordlist.cpp wordlist.h wordlist_test.cpp
-wordlist.o: wordlist.cpp wordlist.h
+wordlist.o: wordlist.cpp wordlist.h sha256.cpp
 sha256.o: sha256.cpp sha256.h
 multiblock.o: multiblock.cpp multiblock.h
 shamirmulti.o: shamirmulti.cpp shamirmulti.h
