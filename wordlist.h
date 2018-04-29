@@ -628,7 +628,6 @@ const std::array<const std::string, 2048> bip_words = {
 
 void f();
 
-std::vector<int> hexTo2048(const std::vector<uint8_t> & data);
-std::vector<int> hexTo1024(const std::vector<uint8_t> & data);
+std::vector<int> hexToPower2(const std::vector<uint8_t> & data, int p);
 
 #endif
