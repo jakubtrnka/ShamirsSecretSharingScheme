@@ -22,7 +22,7 @@ std::array<uint8_t, 255> GF256::powers;
 
 /**
  * Generation of Rijndael field multiplication table with generator 0xe5
- * The resulting table is hardcoded into GF256 class.
+ * The table is initialized the first time class is instantiated.
  */
 void GF256::group_0XE5_multiplication_table_initialization()
 {

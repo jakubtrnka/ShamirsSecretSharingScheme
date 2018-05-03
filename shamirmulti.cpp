@@ -98,29 +98,3 @@ namespace Shamir {
 		return output;
 	} // reconstruct func
 } // Shamir namespace
-/*
-void f() {
-	const uint8_t tmp[] = "this is a very secret message\n";
-	std::vector<uint8_t> secretmessage(std::begin(tmp), std::end(tmp));
-	auto share_collection = Shamir::distribute(secretmessage, 4, 8);
-	for (auto j: share_collection) {
-		for (auto i: j) std::cout << std::hex << std::setw(2) << std::setfill('0') << (int)i;
-		std::cout << std::endl;
-	}
-	std::vector< std::vector<uint8_t> > sharesubcol;
-	sharesubcol.push_back(share_collection[1]);
-	sharesubcol.push_back(share_collection[3]);
-	sharesubcol.push_back(share_collection[6]);
-	sharesubcol.push_back(share_collection[7]);
-	try {
-		for (const auto & it: Shamir::reconstruct(sharesubcol)) {
-			std::cout << it;
-		}
-		std::cout << std::endl;
-
-	} catch (const char * s) {
-		std::cout << s << std::endl;
-	}
-}
-	//for (auto i: chcksmd) std::cout << std::hex << std::setw(2) << std::setfill('0') << (int)i;
-*/
