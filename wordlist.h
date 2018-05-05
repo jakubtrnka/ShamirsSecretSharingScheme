@@ -632,6 +632,7 @@ namespace Shamir {
 	std::vector<uint8_t> & append_bip39_checksum(std::vector<uint8_t> & it);
 	std::vector<uint8_t> & check_bip39_checksum(std::vector<uint8_t> & it);
 	std::vector<int> bip39ToNum(const std::vector<std::string> & in);
+	std::vector<int> slip39ToNum(const std::vector<std::string> & in);
 } // namespace Shamir
 
 #endif

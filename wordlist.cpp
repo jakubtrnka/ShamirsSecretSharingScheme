@@ -93,11 +93,23 @@ namespace Shamir {
 		return output;
 	}
 
+	std::vector<int> slip39ToNum(const std::vector<std::string> & in) {
+		std::vector<int> output;
+		output.reserve(in.size());
+		for (auto & ii: in) {
+			auto element = std::lower_bound(slip_words.data(), slip_words.data() + slip_words.size(), ii);
+			if (*element != ii) throw "Given word not in SLIP39 dictionary\n";
+			output.push_back(static_cast<int>(element - slip_words.data()));
+		}
+		return output;
+	}
+
 	std::vector<int> bip39ToNum(const std::vector<std::string> & in) {
 		std::vector<int> output;
 		output.reserve(in.size());
 		for (auto & ii: in) {
 			auto element = std::lower_bound(bip_words.data(), bip_words.data() + bip_words.size(), ii);
+			if (*element != ii) throw "Given word not in BIP39 dictionary\n";
 			output.push_back(static_cast<int>(element - bip_words.data()));
 		}
 		return output;
