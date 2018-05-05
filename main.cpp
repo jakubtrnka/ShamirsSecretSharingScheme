@@ -1,12 +1,10 @@
-#include <sha256.h>
-#include <oneblockshamir.h>
-#include <rijndael.h>
 #include <shamirmulti.h>
 #include <multiblock.h>
 #include <wordlist.h>
 
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include <cstring>
@@ -76,7 +74,7 @@ void process_clarg(bool & bip2slip, int & count, int & threshold, int argc, cons
 void distribute(int threshold, int count) {
 	std::cout << "Enter BIP39 mnemonic seed\n";
 	char word[512];
-	//for (int i=0; i<512; ++i) word[i] = 0;
+	/// read BIP39 seed
 	std::cin.getline(word, 512);
 	if (std::cin.fail()) throw "Problem with reading BIP mnemonic";
 	std::stringstream ss;
@@ -88,14 +86,15 @@ void distribute(int threshold, int count) {
 		if ( ss.fail() ) break;
 		mnemonic.push_back(tmpw);
 	}
-	//for (auto it: mnemonic) std::cout << it << '\n';
 	try {
 		auto seed = Shamir::power2ToHex(Shamir::bip39ToNum(mnemonic), 11);
 		Shamir::check_bip39_checksum(seed);
 		auto raw_shares = Shamir::distribute(seed, threshold, count);
+		int total_share_bits = seed.size()*8 + 42;
 		for (auto sh: raw_shares) {
-			std::vector<std::string> share_holder;
-			for (auto it: Shamir::hexToPower2(sh, 10)) {
+			auto slip_words_num = Shamir::hexToPower2(sh,10);
+			if (slip_words_num.size()*10 - total_share_bits >= 10) slip_words_num.pop_back(); /// drop the last word if it does not encode any information
+			for (auto it: slip_words_num) {
 				std::cout << slip_words[it] << " ";
 			}
 			std::cout << std::endl;
@@ -175,7 +174,9 @@ void merge() {
 		++count;
 	}
 	auto secret = Shamir::reconstruct(all_shares);
+	int total_mnemonic_bits = secret.size()/4*33;
 	auto secret_bip39 = Shamir::hexToPower2(Shamir::append_bip39_checksum(secret), 11);
+	if (secret_bip39.size() * 11 - total_mnemonic_bits >= 11) secret_bip39.pop_back(); /// drop the last word if it does not encode any information
 	for (auto it: secret_bip39) {
 		auto word = bip_words[it];
 		std::cout << std::left << std::setw(word.size() + 1) << word;
@@ -192,7 +193,6 @@ int main(int argc, const char* argv[]) {
 		std::cerr << "Error: " << s << std::endl;
 		exit(0);
 	}
-	//std::cout << (bip2slip ? "rozlozit" : "slozit") << std::endl;
 	if (bip2slip)
 		distribute((unsigned) threshold, (unsigned) count);
 	else 
