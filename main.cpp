@@ -72,7 +72,7 @@ void process_clarg(bool & bip2slip, int & count, int & threshold, int argc, cons
 }
 
 void distribute(int threshold, int count) {
-	std::cout << "Enter BIP39 mnemonic seed\n";
+	std::cout << "Enter BIP39 mnemonic seed:\n";
 	char word[512];
 	/// read BIP39 seed
 	std::cin.getline(word, 512);
@@ -108,7 +108,8 @@ void distribute(int threshold, int count) {
 }
 
 void process_share(std::vector<uint8_t> & hex_share, unsigned & index, unsigned & threshold) {
-	std::cout << index << " out of " << threshold << " shares entered. Enter another share" << std::endl;
+	if (threshold > 0) std::cout << index << " out of " << threshold<< " shares entered. Enter another share:" << std::endl;
+	else std::cout << index << " out of ??" << " shares entered. Enter another share:" << std::endl;
 	char word[512];
 
 	
@@ -134,7 +135,7 @@ void process_share(std::vector<uint8_t> & hex_share, unsigned & index, unsigned 
 		int secret_length = ((num_share.size() * 10 - 42)/32)*4;
 		int share_bytes = (secret_length*8 + 42)/8;
 		share_bytes += (share_bytes % 8) ? 1 : 0;
-		hex_share.resize(share_bytes); // stripp zero byte introduced by successive zero-padding during 10-bit array conversion to 8-bit array
+		hex_share.resize(share_bytes); /// stripp zero byte introduced by successive zero-padding during 10-bit array conversion to 8-bit array
 
 		share preview(hex_share);
 		index = preview.index;
@@ -173,15 +174,20 @@ void merge() {
 		all_shares.push_back(raw_share);
 		++count;
 	}
-	auto secret = Shamir::reconstruct(all_shares);
-	int total_mnemonic_bits = secret.size()/4*33;
-	auto secret_bip39 = Shamir::hexToPower2(Shamir::append_bip39_checksum(secret), 11);
-	if (secret_bip39.size() * 11 - total_mnemonic_bits >= 11) secret_bip39.pop_back(); /// drop the last word if it does not encode any information
-	for (auto it: secret_bip39) {
-		auto word = bip_words[it];
-		std::cout << std::left << std::setw(word.size() + 1) << word;
+	try {
+		auto secret = Shamir::reconstruct(all_shares);
+		int total_mnemonic_bits = secret.size()/4*33;
+		auto secret_bip39 = Shamir::hexToPower2(Shamir::append_bip39_checksum(secret), 11);
+		if (secret_bip39.size() * 11 - total_mnemonic_bits >= 11) secret_bip39.pop_back(); /// drop the last word if it does not encode any information
+		std::cout << "Reconstructed BIP39 seed:";
+		for (auto it: secret_bip39) {
+			auto word = bip_words[it];
+			std::cout << std::setw(word.size() + 1) << word;
+		}
+		std::cout << std::endl;
+	} catch (const char * s) {
+		std::cerr << s << std::endl;
 	}
-	std::cout << std::endl;
 }
 
 int main(int argc, const char* argv[]) {

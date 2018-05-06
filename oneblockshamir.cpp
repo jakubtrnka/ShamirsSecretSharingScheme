@@ -4,8 +4,6 @@
 
 #include <vector>
 #include <cstdint>
-#include <iostream>
-#include <iomanip>
 
 
 void GFpolynomial::polyInit(size_t _degree) {

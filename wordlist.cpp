@@ -5,8 +5,6 @@
 #include <cstdint>
 #include <vector>
 #include <string>
-#include <iostream>
-#include <iomanip>
 
 namespace Shamir {
 	std::vector<uint8_t> & append_bip39_checksum(std::vector<uint8_t> & it) {
@@ -73,7 +71,6 @@ namespace Shamir {
 	 * power of 2 in a base must be 9 to 24
 	 */
 	std::vector<int> hexToPower2(const std::vector<uint8_t> & data, int p) {
-		//std::cout << "olala " << data.size() << "\n";
 		if ( p < 9 || p > 24 ) throw "base 2-power must be between 9 and 24";
 		std::vector<int> output;
 		uint32_t bitholder(0);
@@ -90,8 +87,6 @@ namespace Shamir {
 			}
 		}
 		int last = bitholder << (p - bitsread);
-		//if (bitsread != 0) output.push_back(last);
-		//if (last != 0) output.push_back(last);
 		output.push_back(last);
 		return output;
 	}

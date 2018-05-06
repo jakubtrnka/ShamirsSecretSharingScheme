@@ -3,12 +3,9 @@
 #include <multiblock.h>
 
 #include <endian.h>
-#include <iostream>
 #include <array>
 #include <vector>
 #include <algorithm>
-
-#include <iomanip>
 
 namespace {
 	void checkSameLengths(const std::vector< std::vector<uint8_t> > & share_list) {

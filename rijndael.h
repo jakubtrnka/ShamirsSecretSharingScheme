@@ -14,8 +14,7 @@
  * field division and inversion uses static multiplication table, which
  * is created the first time the class is instantiated
  */
-class GF256
-{
+class GF256 {
 	friend std::ostream & operator << ( std::ostream & ost, const GF256 & x );
 private:
         uint8_t         element;

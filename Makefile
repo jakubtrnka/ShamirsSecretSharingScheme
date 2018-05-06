@@ -1,7 +1,7 @@
 CXX=g++
-CXXFLAGS=-Wall -pedantic -std=c++17 -I.
+CXXFLAGS=-Wall -pedantic -std=c++17 -I. -O3
 LD=g++
-LDFLAGS=-Wall -pedantic -std=c++17
+LDFLAGS=-Wall -pedantic -std=c++17 -O3
 
 shamir: main.o wordlist.o sha256.o rijndael.o multiblock.o oneblockshamir.o shamirmulti.o get_insecure_randomness.o
 	$(LD) $(LDFLAGS) -o $@ $^
@@ -46,4 +46,4 @@ check: rijndael_test oneblockshamir_test multiblock_test oneblockshamir_test
 	./wordlist_test
 
 clean:
-	rm -f *.o rijndael_test oneblockshamir_test multiblock_test shamirmulti_test wordlist_test
+	rm -f *.o rijndael_test oneblockshamir_test multiblock_test shamirmulti_test wordlist_test shamir

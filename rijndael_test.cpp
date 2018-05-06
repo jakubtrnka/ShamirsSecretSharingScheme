@@ -4,20 +4,15 @@
 
 #include <rijndael.h>
 
-bool test_division_uniqueness()
-{
-	for ( unsigned i = 1; i<=255; ++i )
-	{
+bool test_division_uniqueness() {
+	for ( unsigned i = 1; i<=255; ++i ) {
 		GF256 x(i);
 		std::set<uint8_t> tmp_div;
 		std::pair<std::set<uint8_t>::iterator, bool> present;
-		for ( unsigned j = 1; j<=255; ++j )
-		{
-			try
-			{
+		for ( unsigned j = 1; j<=255; ++j ) {
+			try {
 				present = tmp_div.insert( (x / GF256(j)).octet() );
-			} catch ( const char * s )
-			{
+			} catch ( const char * s ) {
 				return false;
 			}
 			if (present.second==false)
@@ -27,22 +22,18 @@ bool test_division_uniqueness()
 	return true;
 }
 
-bool	test_pow(const GF256 & e, int i)
-{
+bool test_pow(const GF256 & e, int i) {
 	GF256 tmp(1);
-	for ( int j=0; j<i; ++j)
-	{
+	for ( int j=0; j<i; ++j) {
 		tmp = tmp * e;
 	}
 	return e.pow(i) == tmp;
 }
 
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]) {
 	assert(test_division_uniqueness());
 	assert(GF256(1).inversion() == GF256(1));
-	for ( int i=1; i<=255; ++i )
-	{
+	for ( int i=1; i<=255; ++i ) {
 		assert( (GF256(i) * GF256(1)) == GF256(i));
 		assert( (GF256(i) * GF256(0)).octet() == 0);
 		assert( (GF256(i) / GF256(i)).octet() == 1);

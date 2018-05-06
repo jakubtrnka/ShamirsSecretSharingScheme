@@ -11,9 +11,7 @@
 template <size_t SIZE1, size_t SIZE2>
 void test_mnemonic_creation(const std::array<uint8_t, SIZE1> & raw_enthropy, const std::array<const std::string, SIZE2> & mnemonic) {
 	if (SIZE2 % 3 != 0) throw "number of words not multiple of 3";
-	//std::vector<uint8_t> enthropy(SIZE*4/3);
 	std::vector<uint8_t> enthropy(raw_enthropy.begin(), raw_enthropy.end());
-	//for (auto i=0u; i < SIZE * 4/3; ++i) enthropy[i] = raw_enthropy[i];
 
 	/// Create bip words from initial enthropy and compare with reference
 	auto bipwords_num = Shamir::hexToPower2(Shamir::append_bip39_checksum(enthropy), 11);
@@ -25,9 +23,7 @@ void test_mnemonic_creation(const std::array<uint8_t, SIZE1> & raw_enthropy, con
 template <size_t SIZE1, size_t SIZE2>
 void test_seed_recovery(const std::array<uint8_t, SIZE1> & raw_enthropy, const std::array<const std::string, SIZE2> & mnemonic) {
 	if (SIZE2 % 3 != 0) throw "number of words not multiple of 3";
-	//std::vector<uint8_t> enthropy(SIZE*4/3);
 	std::vector<uint8_t> enthropy(raw_enthropy.begin(), raw_enthropy.end());
-	//for (auto i=0u; i < SIZE * 4/3; ++i) enthropy[i] = raw_enthropy[i];
 
 	/// restore enthropy from the bip words
 	auto bipwords_num = Shamir::bip39ToNum( std::vector<std::string>(mnemonic.begin(), mnemonic.end()));

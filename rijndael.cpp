@@ -2,11 +2,9 @@
 
 namespace {
 	/// Russian peasant multiplication algorithm
-	uint8_t russian_peasant_multiplication(uint8_t x, uint8_t y)
-	{
+	uint8_t russian_peasant_multiplication(uint8_t x, uint8_t y) {
 		uint8_t result(0);
-		while (x && y)
-		{
+		while (x && y) {
 			if (y & 1) result ^= x;
 			if (x & 0x80) x = (x << 1) ^ 0x11b;
 			else x <<= 1;
@@ -24,13 +22,11 @@ std::array<uint8_t, 255> GF256::powers;
  * Generation of Rijndael field multiplication table with generator 0xe5
  * The table is initialized the first time class is instantiated.
  */
-void GF256::group_0XE5_multiplication_table_initialization()
-{
+void GF256::group_0XE5_multiplication_table_initialization() {
 	/// initialize the static array
         const uint8_t generator(0xe5);
 	uint8_t tmp_field_element(0x01);
-	for (int i=0; i<255; ++i)
-	{
+	for (int i=0; i<255; ++i) {
 		powers[i] = tmp_field_element;
 		tmp_field_element = russian_peasant_multiplication(tmp_field_element, generator);
 	}
@@ -38,39 +34,32 @@ void GF256::group_0XE5_multiplication_table_initialization()
 		throw "Rijndael's field table construction failed failed";
 }
 
-GF256::GF256() : element(0)
-{
-        if (!multiplication_table_initialized)
-        {
+GF256::GF256() : element(0) {
+        if (!multiplication_table_initialized) {
                 group_0XE5_multiplication_table_initialization();
                 multiplication_table_initialized = true;
         }
 }
 
-GF256::GF256(const uint8_t _element) : element(_element)
-{
-        if (!multiplication_table_initialized)
-        {
+GF256::GF256(const uint8_t _element) : element(_element) {
+        if (!multiplication_table_initialized) {
                 group_0XE5_multiplication_table_initialization();
                 multiplication_table_initialized = true;
         }
 }
 
-std::ostream & operator << ( std::ostream & ost, const GF256 & x )
-{
+std::ostream & operator << ( std::ostream & ost, const GF256 & x ) {
 	auto fmtflags = ost.flags();
 	ost << std::setfill('0') << std::setw(2) << std::hex << (int) x.element;
 	ost.flags(fmtflags);
 	return ost;
 }
 
-GF256	GF256::operator * (const GF256 & x) const
-{
+GF256	GF256::operator * (const GF256 & x) const {
         return GF256(russian_peasant_multiplication(element, x.element));
 }
 
-GF256   GF256::inversion() const
-{
+GF256   GF256::inversion() const {
         if ( element == 0 )
                 throw "Zero element can't be inverted\n";
         uint8_t dlog;

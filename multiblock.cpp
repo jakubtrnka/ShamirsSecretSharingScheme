@@ -3,8 +3,6 @@
 
 #include <vector>
 #include <array>
-#include <iostream>
-#include <iomanip>
 #include <endian.h>
 
 std::vector<uint8_t> checksummed16::serialize() const {
@@ -23,7 +21,6 @@ std::vector<uint8_t> checksummed16::serialize() const {
 	tmp = htobe16(tmp);
 	output.back() |= tmps[0];
 	output.push_back(tmps[1]);
-	//std::cout << std::hex << "<" << std::setfill('0') << std::setw(2) << (int)hash[0] << std::setfill('0') << std::setw(2) << (int)hash[1] << ">\n";
 
 	tmp = static_cast<uint16_t>(hash[1]);
 	tmp <<= ((8 - (data_bits % 8)) % 8);
