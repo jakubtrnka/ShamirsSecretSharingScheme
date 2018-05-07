@@ -5,7 +5,7 @@
 There are many ways of implementing this technique. This program implements design proposed by document [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 It operates on enthropy used for generating Bitcoin [HD-wallet](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) seed which is currently mostly encapsulated in mnemonic phrases given by standard [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
 
-**This is experimental implementation and may contain bugs - use it on your own responsibility.***
+**This is experimental implementation and may contain bugs - use it on your own responsibility.**
 
 Program reads BIP39 mnemonic phrase, restores encoded enthropy and splits it into given number of Shamir's shares with a given reconstruction threshold. Each share contains metadata (share index and reconstruction threshold), the actual share, and checksum for random error detections.
 
