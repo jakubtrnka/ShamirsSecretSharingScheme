@@ -15,7 +15,7 @@ Shares produced with this method can be used to restore original secret (enthrop
 The simple schematics of how this was implemented is given in the following picture:<br>
 <div align="center">
 <a href="docs/long-message-shamir.png">
-<img src="docs/long-message-shamir.svg" alt="Shamir's key split" style="width: 400px;"/></a>
+<img src="docs/long-message-shamir.png" alt="Shamir's key split" style="width: 400px;"/></a>
 </div>
 
 ## Compilation
