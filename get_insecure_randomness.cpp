@@ -1,14 +1,13 @@
 #include <get_insecure_randomness.h>
-#include <chrono>
-#include <random>
+#include <fstream>
 
 void pseudo_random_fill(std::vector<uint8_t> & chunk)
 {
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::default_random_engine generator(seed);
-	std::uniform_int_distribution<uint8_t> distribution(0, 255);
-	for (auto && i : chunk)
-	{
-		i = distribution(generator);
-	}
+	std::ifstream urandom("/dev/urandom", std::ios::in | std::ios::binary);
+	if (urandom) {
+		urandom.read(reinterpret_cast<char *>(chunk.data()), chunk.size() * sizeof(chunk.back()));
+		if (!urandom) throw "Failed to generate randomness";
+		urandom.close();
+	} else throw "Failed to open /dev/urandom";
+
 }
