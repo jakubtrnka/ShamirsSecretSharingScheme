@@ -10,67 +10,72 @@
 #include <cstring>
 #include <cstdlib>
 #include <set>
+#include <regex>
 
 namespace {
-	int readint(const char * s) {
+	std::string program_name;
+
+	int readint(const std::string s) {
 		const char * oor = "Number out of range";
-		if (std::strlen(s) > 3) throw oor;
-		int out = (int) std::strtol(s, NULL, 10);
+		if (s.size() > 3) throw oor;
+		int out = (int) std::strtol(s.c_str(), NULL, 10);
 		if (out == 0) throw "Invalid number";
 		if (out > 32) throw oor;
 		return out;
 	}
+
+	std::string help(const std::string & topic = std::string("")) { // help_section for the future
+		return std::string("Usage: " + program_name + " [-d|-m] -t <1-32> -n <1-32>\n\td...distribute\n\tm...merge\n\tt...threshold\n\tn...count\n\tt<=n\n");
+	}
 }
 
-void process_clarg(bool & bip2slip, int & count, int & threshold, int argc, const char * argv[]) {
-	const std::string help("Usage: " + std::string(argv[0]) + " [-d|-m] -t <1-32> -n <1-32>\n\td...distribute\n\tm...merge\n\tt...threshold\n\tn...count\n\tt<=n\n");
+void process_clarg(bool & merg, int & count, int & threshold, int argc, const char * argv[]) {
 	if (argc == 1) {
-		std::cerr << help;
+		std::cerr << help();
 		exit(1);
 	}
-	const char * invalid = "Invalid command line arguments";
-	bool tmps(false), tmpd(false);
-	std::set<char> arguments;
 	count = 0;
 	threshold = 0;
-	arguments.insert('d');
-	arguments.insert('m');
-	arguments.insert('t');
-	arguments.insert('n');
-	arguments.insert('h');
+	merg = false;
+
+	std::regex help_arg(R"(.*(?:\s|^)(-h|--help)(?:\s+(\w+)\b)?.*)");
+	std::regex merg_arg(R"(.*(?:\s|^)(?:-m\s*|--merge)\b.*)");
+	std::regex dist_arg(R"(.*(?:\s|^)(-d|--distribute)\b.*)");
+	std::regex threshold_arg(R"(.*(?:\s|^)(-t|--threshold)\s*(\d{1,2})\b.*)");
+	std::regex count_arg(R"(.*(?:\s|^)(-n|--count)\s*(\d{1,2})\b.*)");
+	std::smatch clarg_match;
+	std::string commandline;
 	for (int i = 1; i < argc; ++i) {
-		if (argv[i][0] != '-') throw invalid;
-		if (std::strlen(argv[i]) > 2) throw invalid;
-		auto ig = arguments.find(argv[i][1]);
-		if (ig == arguments.end()) throw "Unsupported command line arguments";
-		switch ( *ig) {
-			case 'd': tmpd = true;
-				  break;
-			case 'm':  tmps = true;
-				  break;
-			case 't':  ++i;
-				  if (i >=argc ) throw invalid;
-				  threshold = readint(argv[i]);
-				  continue;
-				  break;
-			case 'n':  ++i;
-				  if (i >=argc ) throw invalid;
-				  count = readint(argv[i]);
-				  continue;
-				  break;
-			case 'h': if (argc == 2) {
-					  std::cout << help;
-					  exit(0);
-				  }
-				  break;
+		commandline.append(argv[i]);
+		commandline.push_back(' ');
+	}
+	commandline.pop_back();
+	if (std::regex_match(commandline, clarg_match, help_arg)) {
+		std::cout << help(clarg_match[clarg_match.size()-1]);
+		exit(0);
+	}
+	if (std::regex_match(commandline, clarg_match, merg_arg)) {
+		merg = true;
+	}
+	if (std::regex_match(commandline, clarg_match, dist_arg)) {
+		//std::cout << clarg_match[0] << " distribujiiiiii" << std::endl;
+		if (merg) {
+			std::cerr << "Cannot merge and distribute at the same time" << std::endl;
+			exit(1);
 		}
 	}
-	if ((tmpd ^ tmps) == 0) throw "Exclusive command line options";
-	if (threshold * count == 0 && tmpd) throw "Inconsistent command line arguments";
-	if (tmpd && (threshold > count)) throw "Number of shares specified is smaller than threshold specified";
-	bip2slip = tmpd;
+	if (std::regex_match(commandline, clarg_match, threshold_arg)) {
+		threshold = readint(clarg_match[clarg_match.size()-1]);
+	}
+	if (std::regex_match(commandline, clarg_match, count_arg)) {
+		count = readint(clarg_match[clarg_match.size()-1]);
+		if (threshold > count) {
+			std::cerr << "Number of shares must be greater or equal to threshold" << std::endl;
+			exit(1);
+		}
+	}
+	if (!merg && (threshold * count == 0) ) throw "Inconsistent command line arguments";
 }
-
 void distribute(int threshold, int count) {
 	std::cout << "Enter BIP39 mnemonic seed:\n";
 	char word[512];
@@ -191,17 +196,18 @@ void merge() {
 }
 
 int main(int argc, const char* argv[]) {
-	bool bip2slip(true);
+	program_name = argv[0];
+	bool merg;
 	int threshold, count;
 	try {
-		process_clarg(bip2slip, count, threshold, argc, argv);
+		process_clarg(merg, count, threshold, argc, argv);
 	} catch (const char *s) {
 		std::cerr << "Error: " << s << std::endl;
 		exit(0);
 	}
-	if (bip2slip)
-		distribute((unsigned) threshold, (unsigned) count);
-	else 
+	if (merg)
 		merge();
+	else 
+		distribute((unsigned) threshold, (unsigned) count);
 	return 0;
 }
