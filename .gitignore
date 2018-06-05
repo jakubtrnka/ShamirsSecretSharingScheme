@@ -37,3 +37,7 @@ TODO
 shamir
 *template.txt
 vgcore*
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
