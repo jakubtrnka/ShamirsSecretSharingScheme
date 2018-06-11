@@ -10,6 +10,19 @@
 // Internal implementation code.
 namespace
 {
+    void static inline WriteBE64(unsigned char* ptr, uint64_t x)
+    {
+        uint64_t v = htobe64(x);
+        memcpy(ptr, (char*)&v, 8);
+    }
+
+    uint32_t static inline ReadBE64(const unsigned char* ptr)
+    {
+        uint64_t x;
+        memcpy((char*)&x, ptr, 8);
+        return be32toh(x);
+    }
+
 /// Internal SHA-512 implementation.
 namespace sha512
 {

@@ -633,11 +633,11 @@ namespace Shamir {
 namespace Shamir {
 	std::vector<int> hexToPower2(const std::vector<uint8_t> & data, int p);
 	std::vector<uint8_t> power2ToHex(const std::vector<int> & it, int p);
+	std::vector<int> slip39ToNum(const std::vector<std::string> & in);
 #ifdef BIP39
 	std::vector<uint8_t> & append_bip39_checksum(std::vector<uint8_t> & it);
 	std::vector<uint8_t> & check_bip39_checksum(std::vector<uint8_t> & it);
 	std::vector<int> bip39ToNum(const std::vector<std::string> & in);
-	std::vector<int> slip39ToNum(const std::vector<std::string> & in);
 #endif
 } // namespace Shamir
 
