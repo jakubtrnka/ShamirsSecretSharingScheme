@@ -7,36 +7,7 @@
 #include <string>
 
 namespace Shamir {
-	std::vector<uint8_t> & append_bip39_checksum(std::vector<uint8_t> & it) {
-		CSHA256 h;
-		uint8_t hash[32];
-		h.Write(it.data(), it.size());
-		h.Finalize(hash);
-		int seedchunks = it.size() / 4;
-		for (auto i=0; i < seedchunks/8; ++i) it.push_back(hash[i]);
-		if (seedchunks % 8 != 0) it.push_back(hash[seedchunks/8] & (0xff << (8 - seedchunks % 8)));
-		return it;
-	}
-
-	std::vector<uint8_t> & check_bip39_checksum(std::vector<uint8_t> & it) {
-		auto databitlen = it.size() * 8;
-		databitlen -= databitlen % 33;
-		if (databitlen % 8 != 0) {  // zero-pad last block (byte) of the data
-			it.back() &= (0xff << (8 - (databitlen % 8)));
-		}
-		auto checksumsize = databitlen - (databitlen/33)*32;
-		CSHA256 h;
-		uint8_t hash[32];
-		h.Write(it.data(), (databitlen/33)*4);
-		h.Finalize(hash);
-		if (checksumsize % 8 != 0) hash[checksumsize / 8] &= (0xff << (8 - (checksumsize % 8)));
-		for (auto i=0u; i < checksumsize/8 + (checksumsize % 8 ==0? 0 : 1); ++i) { // TODO: clean this thing
-			if (it[(databitlen/33)*4 + i] != hash[i]) throw "BIP39 checksum verification failed";
-		}
-		it.resize((databitlen/33)*4);
-		return it;
-	}
-
+	
 	/** Converts vector of integers representing number base 2^p to a byte-vector
 	  * with complexity O( vector.size() )
 	  * power of 2 in a base must be 9 to 24
@@ -90,7 +61,7 @@ namespace Shamir {
 		output.push_back(last);
 		return output;
 	}
-
+	
 	std::vector<int> slip39ToNum(const std::vector<std::string> & in) {
 		std::vector<int> output;
 		output.reserve(in.size());
@@ -102,6 +73,36 @@ namespace Shamir {
 		return output;
 	}
 
+#ifdef BIP39
+	std::vector<uint8_t> & append_bip39_checksum(std::vector<uint8_t> & it) {
+		CSHA256 h;
+		uint8_t hash[32];
+		h.Write(it.data(), it.size());
+		h.Finalize(hash);
+		int seedchunks = it.size() / 4;
+		for (auto i=0; i < seedchunks/8; ++i) it.push_back(hash[i]);
+		if (seedchunks % 8 != 0) it.push_back(hash[seedchunks/8] & (0xff << (8 - seedchunks % 8)));
+		return it;
+	}
+	
+	std::vector<uint8_t> & check_bip39_checksum(std::vector<uint8_t> & it) {
+		auto databitlen = it.size() * 8;
+		databitlen -= databitlen % 33;
+		if (databitlen % 8 != 0) {  // zero-pad last block (byte) of the data
+			it.back() &= (0xff << (8 - (databitlen % 8)));
+		}
+		auto checksumsize = databitlen - (databitlen/33)*32;
+		CSHA256 h;
+		uint8_t hash[32];
+		h.Write(it.data(), (databitlen/33)*4);
+		h.Finalize(hash);
+		if (checksumsize % 8 != 0) hash[checksumsize / 8] &= (0xff << (8 - (checksumsize % 8)));
+		for (auto i=0u; i < checksumsize/8 + (checksumsize % 8 ==0? 0 : 1); ++i) { // TODO: clean this thing
+			if (it[(databitlen/33)*4 + i] != hash[i]) throw "BIP39 checksum verification failed";
+		}
+		it.resize((databitlen/33)*4);
+		return it;
+	}
 	std::vector<int> bip39ToNum(const std::vector<std::string> & in) {
 		std::vector<int> output;
 		output.reserve(in.size());
@@ -112,6 +113,5 @@ namespace Shamir {
 		}
 		return output;
 	}
-	
-} // Shamir namespace
-
+#endif
+} // Shamir

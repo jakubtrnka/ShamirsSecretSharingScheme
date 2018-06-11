@@ -16,11 +16,11 @@ namespace
         memcpy(ptr, (char*)&v, 8);
     }
 
-    uint32_t static inline ReadBE64(const unsigned char* ptr)
+    uint64_t static inline ReadBE64(const unsigned char* ptr)
     {
         uint64_t x;
         memcpy((char*)&x, ptr, 8);
-        return be32toh(x);
+        return be64toh(x);
     }
 
 /// Internal SHA-512 implementation.

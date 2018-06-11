@@ -4,7 +4,9 @@
 
 #include <vector>
 #include <cstdint>
+#include <set>
 
+using namespace Shamir;
 
 void GFpolynomial::polyInit(size_t _degree) {
 	m_coefficients.resize(_degree + 1);
@@ -12,7 +14,7 @@ void GFpolynomial::polyInit(size_t _degree) {
 }
 
 GFpolynomial::GFpolynomial(uint8_t _secret, int _degree) {
-	if (_degree < 0 || _degree > 255) throw "invalid polynomial degree";
+	if (_degree < 0 || _degree > 31) throw "invalid polynomial degree";
 	polyInit(_degree);
 	m_coefficients[0] = _secret;
 }
@@ -26,18 +28,16 @@ uint8_t GFpolynomial::getSecret() const {
  * L(x) = Sum(y_j * l_j(x)); j = 0, 1, ..., k
  * l_j(x) = Product((x - x_m)/(x_j - x_m)) j = 0, 2, ..., j-1, j+1, ..., k
  *
- * simplified version only calculates L_(0), i. e. secret, and generates brand new
- * random polynomial of corresponding degree
+ * only calculates L = L_(0), i. e. secret, i. e. generates constant function
  */
-GFpolynomial::GFpolynomial(const std::vector<Shamir::xy_point> & _points, bool simplified) {
-	if (simplified == false) throw "Not supported yet";
+GFpolynomial::GFpolynomial(const std::vector<xy_point> & _points) {
 	if (_points.size() < 1) throw "Invalid shamir share set";
+	std::set<uint8_t> check_uniqueness;
+	for (auto &it: _points) if (!check_uniqueness.insert(it.first).second) throw "Two shares with same index";
 	GF256 result(0);
-	for (size_t j = 0; j < _points.size(); ++j)
-	{
+	for (size_t j = 0; j < _points.size(); ++j) {
 		GF256 tmp(1);
-		for (size_t m = 0; m < _points.size(); ++m)
-		{
+		for (size_t m = 0; m < _points.size(); ++m) {
 			if (m == j) continue;
 			tmp = tmp * GF256(_points[m].first) / (GF256(_points[j].first) - GF256(_points[m].first));
 		}
@@ -47,15 +47,14 @@ GFpolynomial::GFpolynomial(const std::vector<Shamir::xy_point> & _points, bool s
 	m_coefficients[0] = result.octet();
 }
 
-Shamir::xy_point GFpolynomial::getShare(int _index) const {
-	if (_index > 255 || _index < 1) throw "invalid share index";
+uint8_t GFpolynomial::getShare(int _index) const {
+	if (_index > 32 || _index < 1) throw "invalid share index";
 
 	GF256 result(0u);
 	const GF256 index(static_cast<uint8_t>(_index));
 
-	for (size_t i = 0; i < m_coefficients.size(); ++i)
-	{
+	for (size_t i = 0; i < m_coefficients.size(); ++i) {
 		result = result + index.pow(i) * GF256(m_coefficients[i]);
 	}
-	return Shamir::xy_point(index.octet(), result.octet());
+	return result.octet();
 }

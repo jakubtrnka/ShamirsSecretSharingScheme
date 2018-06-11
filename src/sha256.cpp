@@ -7,7 +7,6 @@
 #include <endian.h>
 #include <string.h>
 
-
 // Internal implementation code.
 namespace
 {
