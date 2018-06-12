@@ -18,7 +18,7 @@ namespace {
 		ost << "distraw <count> <threshold>\t\tReads ASCII text.\n\t\t";
 		ost << "mergehex\t\t\t\tReads shares from stdin, one share per line. Correct number of shares must be supplied.\n\t\t";
 		ost << "mergeseed <passphrase>\t\t\tSame as mergehex, but applies PBKDF2-SHA256 on the output (see SLIP39).\n\t\t";
-		ost << "rawmerge\t\t\t\tSame as mergehex, but prints result as ascii string. This makes sense\n\t\t\t\t\t\t\t";
+		ost << "mergeascii\t\t\t\tSame as mergehex, but prints result as ascii string. This makes sense\n\t\t\t\t\t\t\t";
 		ost << "only to shares constructed from ascii text. The result may be cropped by null-char.\n\t\t";
 		ost << "help\t\t\t\t\tPrints this help and exits." << std::endl;
 	}
@@ -74,7 +74,7 @@ namespace {
 	}
 
 	void distraw(const char *c, const char *t) {
-		std::cout << "distributes arbibrary ascii text into\n\t" << c << "\n\tthreshold: " << t << ":\n";
+		std::cout << "distributes arbibrary ascii text into " << c << " shares with reconstruction threshold " << t << ":\n";
 		long count, threshold;
 		char * cc;
 		count = strtol(c, &cc, 10);

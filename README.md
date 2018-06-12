@@ -43,7 +43,7 @@ $ ./shamir help
 		distraw <count> <threshold>		Reads ASCII text.
 		mergehex				Reads shares from stdin, one share per line. Correct number of shares must be supplied.
 		mergeseed <passphrase>			Same as mergehex, but applies PBKDF2-SHA256 on the output (see SLIP39).
-		rawmerge				Same as mergehex, but prints result as ascii string. This makes sense
+		mergeascii				Same as mergehex, but prints result as ascii string. This makes sense
 							only to shares constructed from ascii text. The result may be cropped by null-char.
 		help					Prints this help and exits.
 
