@@ -4,7 +4,7 @@ LDFLAGS=-Wall -pedantic -std=c++11
 
 OBJ=bit_container.o get_insecure_randomness.o hmac_sha256.o hmac_sha512.o main.o multiblockshamir.o oneblockshamir.o pbkdf2.o rijndael.o sha256.o sha512.o share.o slip39_wrapper.o wordlist.o
 
-main: $(OBJ)
+shamir: $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $^
 
 %.o: %.cpp %.h

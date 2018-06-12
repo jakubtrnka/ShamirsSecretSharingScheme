@@ -57,7 +57,7 @@ namespace {
 	}
 
 	void disthex(const char *c, const char *t) {
-		std::cout << "distributes hex encoded enthropy into\n\t" << c << " shares\n\twith reconstruction threshold " << t << '\n';
+		std::cout << "Distributes hex encoded enthropy into " << c << " shares with reconstruction threshold " << t << ":\n";
 		long count, threshold;
 		char * cc;
 		count = strtol(c, &cc, 10);
@@ -74,7 +74,7 @@ namespace {
 	}
 
 	void distraw(const char *c, const char *t) {
-		std::cout << "distributes arbibrary ascii text into\n\t" << c << "\n\tthreshold: " << t << '\n';
+		std::cout << "distributes arbibrary ascii text into\n\t" << c << "\n\tthreshold: " << t << ":\n";
 		long count, threshold;
 		char * cc;
 		count = strtol(c, &cc, 10);
@@ -94,7 +94,7 @@ namespace {
 	}
 
 	void mergeseed(const char *p) {
-		std::cout << "merge into seed with passphrase: " << p << '\n';
+		std::cout << "Merges into seed with passphrase: '" << p << "':\n";
 		std::vector<std::vector<std::string>> shares;
 		while(std::cin) {
 			shares.push_back(readmnemonics(std::cin));
@@ -106,7 +106,7 @@ namespace {
 	}
 	
 	void mergehex() {
-		std::cout << "merges shares into hex encoded enthropy\n";
+		std::cout << "Merges shares into hex encoded enthropy:\n";
 		std::vector<std::vector<std::string>> shares;
 		while(std::cin) {
 			shares.push_back(readmnemonics(std::cin));
@@ -119,7 +119,7 @@ namespace {
 
 	/// reconstructs raw share and prints as a c-string
 	void mergeascii() {
-		std::cout << "merges shares and prints the result as ASCII characters\n";
+		std::cout << "Merges shares and prints the result as ASCII characters\n";
 		std::vector<std::vector<std::string>> shares;
 		while(std::cin) {
 			shares.push_back(readmnemonics(std::cin));
