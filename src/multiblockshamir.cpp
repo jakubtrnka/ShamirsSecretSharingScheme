@@ -22,7 +22,6 @@ namespace Shamir {
 	}
 	
 	std::vector<std::vector<uint8_t>> distribute_secret_raw(const std::vector<uint8_t> & secret, uint16_t count, uint16_t threshold) {
-		//bit_container share
 		if (count < threshold) throw "Number of shares must be greater or equal to the reconstruction threshold";
 		std::vector<std::vector<uint8_t>> output(count);
 		for (auto it: secret) {

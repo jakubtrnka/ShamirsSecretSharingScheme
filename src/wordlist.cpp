@@ -103,6 +103,7 @@ namespace Shamir {
 		it.resize((databitlen/33)*4);
 		return it;
 	}
+
 	std::vector<int> bip39ToNum(const std::vector<std::string> & in) {
 		std::vector<int> output;
 		output.reserve(in.size());

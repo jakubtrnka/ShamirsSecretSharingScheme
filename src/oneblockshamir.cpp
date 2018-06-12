@@ -19,9 +19,7 @@ GFpolynomial::GFpolynomial(uint8_t _secret, int _degree) {
 	m_coefficients[0] = _secret;
 }
 
-uint8_t GFpolynomial::getSecret() const {
-	return m_coefficients[0];
-}
+uint8_t GFpolynomial::getSecret() const { return m_coefficients[0]; }
 
 /**
  * Polynomial is constructed by Lagrange interpolation through points (x_i, y_i)
@@ -49,12 +47,8 @@ GFpolynomial::GFpolynomial(const std::vector<xy_point> & _points) {
 
 uint8_t GFpolynomial::getShare(int _index) const {
 	if (_index > 32 || _index < 1) throw "invalid share index";
-
 	GF256 result(0u);
 	const GF256 index(static_cast<uint8_t>(_index));
-
-	for (size_t i = 0; i < m_coefficients.size(); ++i) {
-		result = result + index.pow(i) * GF256(m_coefficients[i]);
-	}
+	for (size_t i = 0; i < m_coefficients.size(); ++i) result = result + index.pow(i) * GF256(m_coefficients[i]);
 	return result.octet();
 }

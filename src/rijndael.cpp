@@ -30,8 +30,7 @@ void GF256::group_0XE5_multiplication_table_initialization() {
 		powers[i] = tmp_field_element;
 		tmp_field_element = russian_peasant_multiplication(tmp_field_element, generator);
 	}
-	if ( tmp_field_element != 1 )
-		throw "Rijndael's field table construction failed failed";
+	if ( tmp_field_element != 1 ) throw "Rijndael's field table construction failed failed";
 }
 
 GF256::GF256() : element(0) {
@@ -59,15 +58,12 @@ GF256	GF256::operator * (const GF256 & x) const {
         return GF256(russian_peasant_multiplication(element, x.element));
 }
 
-GF256   GF256::inversion() const {
-        if ( element == 0 )
-                throw "Zero element can't be inverted\n";
+GF256	GF256::inversion() const {
+        if ( element == 0 ) throw "Zero element can't be inverted\n";
         uint8_t dlog;
         bool    dlogSet(false);
-        for (uint8_t i=0; i<255; ++i)
-        {
-                if ( powers[i] == element )
-                {
+        for (uint8_t i=0; i<255; ++i) {
+                if ( powers[i] == element ) {
                         dlogSet = true;
                         dlog = i;
 			break;
@@ -82,22 +78,17 @@ GF256   GF256::inversion() const {
  */
 GF256   GF256::operator / (const GF256 & x) const
 {
-        if ( x.element == 0 )
-                throw "Division by zero";
-        if ( element == 0 )
-                return GF256(0);
+        if ( x.element == 0 ) throw "Division by zero";
+        if ( element == 0 ) return GF256(0);
 
         uint8_t log1(0), log2(0);
         bool log1set(false), log2set(false);
-        for (size_t i=0; i<powers.size(); ++i)
-        {
-                if (element == powers[i])
-                {
+        for (size_t i=0; i<powers.size(); ++i) {
+                if (element == powers[i]) {
                         log1set = true;
                         log1 = i;
                 }
-                if (x.element == powers[i])
-                {
+                if (x.element == powers[i]) {
                         log2set = true;
                         log2 = i;
                 }
@@ -107,13 +98,11 @@ GF256   GF256::operator / (const GF256 & x) const
         return GF256(powers[(log1 - log2 + 255) % 255]) ;
 }
 
-GF256 GF256::pow(int k) const
-{
+GF256 GF256::pow(int k) const {
         if ( element == 0 ) return *this;
         if ( k == 0 ) return GF256(1);
         GF256 output(1); 
-        for ( int i=128; i>0; i>>=1 )
-        {
+        for ( int i=128; i>0; i>>=1 ) {
                 output = output * output;
                 if (k & i) output = output * (*this);
         }

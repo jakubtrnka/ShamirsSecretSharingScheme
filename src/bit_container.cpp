@@ -2,8 +2,6 @@
 #include <endian.h>
 #include <stdexcept>
 
-#include <iostream>
-
 namespace {
 	union overflower {
 		uint8_t array[2];
@@ -50,7 +48,6 @@ namespace Shamir {
 			if (n - appended >= 8) {
 				appended += 8;
 			} else {
-	
 				carry.number &= (0xffff << (8 + appended - n));
 				appended = n;
 			}
@@ -59,7 +56,6 @@ namespace Shamir {
 			carry.number = htobe16(carry.number);
 			if (overflow != 0) this->back() |= carry.array[0];
 			this->push_back(carry.array[1]);
-	
 		}
 		height += appended;
 		this->resize(height/8 + ((height % 8) ? 1 : 0));
