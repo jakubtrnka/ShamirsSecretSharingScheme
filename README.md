@@ -20,7 +20,7 @@ The simple schematics of how this was implemented is given in the following pict
 Following picture shows how 256 bit seed is generated from master secret:
 <div align="center">
 <a href="doc/Seed-derivation.png">
-<img src="doc/Seed-derivation.png" alt="Seed generation" style="width: 360px;"/></a>
+<img src="doc/Seed-derivation.png" alt="Seed generation" style="width: 300px;"/></a>
 </div>
 
 ## Compilation
