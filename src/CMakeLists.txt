@@ -6,7 +6,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 include_directories( . )
 
-add_library(crypto
+add_library(shamirsharing
 	hmac_sha256.cpp
 	hmac_sha256.h
 	hmac_sha512.cpp
@@ -19,8 +19,6 @@ add_library(crypto
 	pbkdf2.h
 	rijndael.cpp
 	rijndael.h
-	)
-add_library(shamir
 	bit_container.cpp
 	bit_container.h
 	oneblockshamir.cpp
@@ -39,4 +37,4 @@ add_library(shamir
 
 add_executable(Shamir main.cpp)
 
-target_link_libraries(Shamir shamir crypto)
+target_link_libraries(Shamir shamirsharing)
