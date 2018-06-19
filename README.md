@@ -2,8 +2,8 @@
 
 [Shamir's secret sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) enables to split some secret between multiple parties in a secure way through the use of *shares*. In order to reconstruct original secret from shares, specific number of those shares is required (reconstruction threshold), while if not enough shares is available, no information about the secret is revealed.
 
-There are many ways of implementing this technique. This program implements design proposed by document [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
-It operates on enthropy supplied in various forms, outputs shares encoded in mnemonic words and vice versa - program also reads mnemonic words and reconstructs original enthropy or optionally passes the reconstructed result into `PBKDF2(PRF = HMAC-SHA256, Password = master_secret, Salt = "SLIP0039" + passphrase, iterations = 20000, dkLen = 256 bits)`, in order to produce seed.
+There are many ways to implement this technique. This program implements design proposed in document [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
+It operates on enthropy supplied in various forms, outputs shares encoded in mnemonic words and vice versa - reads mnemonic words and reconstructs original enthropy and optionally passes the result into `PBKDF2(PRF = HMAC-SHA256, Password = master_secret, Salt = "SLIP0039" + passphrase, iterations = 20000, dkLen = 256 bits)`, in order to produce seed.
 
 **This is experimental implementation and may contain bugs - use it on your own responsibility.**
 
