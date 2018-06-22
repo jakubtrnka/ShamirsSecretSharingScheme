@@ -26,7 +26,9 @@ Following picture shows how 256 bit seed is generated from master secret:
 ## Compilation
 Program follows standard C++11 and can be compiled using command
 ```
-cd src
+$ mkdir build
+$ cd build
+$ cmake ..
 $ make
 ```
 in project directory.
