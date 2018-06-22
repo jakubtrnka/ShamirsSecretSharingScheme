@@ -18,12 +18,6 @@ namespace Shamir {
 		return output;
 	}
 
-	std::vector<std::vector<std::string>> randEnthropy(int bits, uint16_t count, uint16_t threshold) {
-		std::vector<uint8_t> enthropy(bits/8);
-		pseudo_random_fill(enthropy);
-		return fromEnthropy(enthropy, count, threshold);
-	}
-
 	std::vector<uint8_t> toEnthropy(const std::vector<std::vector<std::string>> & mnemonics) {
 		std::vector<std::vector<uint8_t>> decoded_shares;
 		for (unsigned i=0; i<mnemonics.size(); ++i) {

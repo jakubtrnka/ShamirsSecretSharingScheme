@@ -17,7 +17,6 @@
  */
 namespace Shamir {
 	std::vector<std::vector<std::string>> fromEnthropy(const std::vector<uint8_t> & enthropy, uint16_t count, uint16_t threshold);
-	std::vector<std::vector<std::string>> randEnthropy(int bits, uint16_t count, uint16_t threshold);
 	std::vector<uint8_t> toEnthropy(const std::vector<std::vector<std::string>> & mnemonics);
 	std::vector<uint8_t> toSeed(const std::vector<std::vector<std::string>> & mnemonics, const std::string & password = "");
 } // Shamir
