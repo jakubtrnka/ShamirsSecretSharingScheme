@@ -1,20 +1,14 @@
-cmake_minimum_required (VERSION 3.0)
-
-project (ShamirSecretSharing)
-set (CMAKE_CXX_STANDARD 11)
-
-
 include_directories( . )
 
 add_library(shamirsharing
 	hmac_sha256.cpp
 	hmac_sha256.h
-	hmac_sha512.cpp
-	hmac_sha512.h
+	#hmac_sha512.cpp
+	#hmac_sha512.h
 	sha256.cpp
 	sha256.h
-	sha512.cpp
-	sha512.h
+	#sha512.cpp
+	#sha512.h
 	pbkdf2.cpp
 	pbkdf2.h
 	rijndael.cpp
@@ -32,9 +26,9 @@ add_library(shamirsharing
 	slip39_wrapper.cpp
 	slip39_wrapper.h
 	wordlist.cpp
-	wordlist.h
-	)
+	wordlist.h)
 
-add_executable(Shamir main.cpp)
+add_executable(Shamir-cli main.cpp)
+target_link_libraries(Shamir-cli shamirsharing)
 
-target_link_libraries(Shamir shamirsharing)
+add_subdirectory(qt)
