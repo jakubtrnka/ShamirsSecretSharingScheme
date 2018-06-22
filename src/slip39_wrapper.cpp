@@ -12,13 +12,13 @@ namespace Shamir {
 		for (unsigned i=0; i < shares.size(); ++i) {
 			auto line = hexToPower2(shares.at(i), 10);
 			auto linebits = (enthropy.size()*8 + 42);
-			line.resize(linebits / 10 + ((linebits % 10) ? 1 : 0));
+			line.resize(linebits / 10 + (linebits % 10 ? 1 : 0));
 			for (auto word: line) output.at(i).push_back(slip_words[word]);
 		}
 		return output;
 	}
 
-	std::vector<std::vector<std::string>> randEnthropy(int bits, uint16_t count, uint16_t threshold, const std::string & password) {
+	std::vector<std::vector<std::string>> randEnthropy(int bits, uint16_t count, uint16_t threshold) {
 		std::vector<uint8_t> enthropy(bits/8);
 		pseudo_random_fill(enthropy);
 		return fromEnthropy(enthropy, count, threshold);

@@ -13,7 +13,7 @@ namespace Shamir {
 	void bit_container::pop_n(size_t n) {
 		if (n > height) throw std::underflow_error("requested more bits that there are in the container\n");
 		height -= n;
-		this->resize(height/8 + ((height % 8 == 0) ? 0 : 1 ));
+		this->resize(height/8 + (height % 8 == 0 ? 0 : 1 ));
 		if (! (this->empty())) this->back() &= (0xff << ((8 - (height % 8)) % 8));
 	}
 
@@ -21,7 +21,7 @@ namespace Shamir {
 		if (n > height) throw std::underflow_error("requested more bits that there are in the container\n");
 		output.clear();
 		const size_t start = (height-n)/8;
-		const size_t stop = height / 8 - ((height % 8 == 0)? 1 : 0 );
+		const size_t stop = height / 8 - (height % 8 == 0? 1 : 0 );
 		const short shift = (short) ((height - n) % 8);
 		overflower carry{0};
 		int counter(0);
@@ -34,9 +34,9 @@ namespace Shamir {
 			counter ++;
 		}
 		height -= n;
-		this->resize(height/8 + ((height % 8 == 0) ? 0 : 1 ));
+		this->resize(height/8 + (height % 8 == 0 ? 0 : 1 ));
 		if (! (this->empty())) this->back() &= (0xff << ((8 - (height % 8)) % 8));
-		output.resize(n/8 + ((n % 8)? 1 : 0));
+		output.resize(n/8 + (n % 8 ? 1 : 0));
 	}
 	
 	void bit_container::push_n(const std::vector<uint8_t> & data, size_t n) {
@@ -58,6 +58,6 @@ namespace Shamir {
 			this->push_back(carry.array[1]);
 		}
 		height += appended;
-		this->resize(height/8 + ((height % 8) ? 1 : 0));
+		this->resize(height/8 + (height % 8 ? 1 : 0));
 	}
 } // Shamir
