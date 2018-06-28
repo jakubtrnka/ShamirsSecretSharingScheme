@@ -14,7 +14,7 @@
    viewBox="0 0 217 297"
    version="1.1"
    id="svg8"
-   sodipodi:docname="SLIP39.svg"
+   sodipodi:docname="long-message-shamir.svg"
    inkscape:version="0.92.2 2405546, 2018-03-11">
   <defs
      id="defs2">
@@ -385,9 +385,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.8875"
-     inkscape:cx="359.60916"
-     inkscape:cy="731.97535"
+     inkscape:zoom="1.2551145"
+     inkscape:cx="371.13812"
+     inkscape:cy="237.29888"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -402,9 +402,9 @@
      inkscape:object-nodes="true"
      inkscape:bbox-paths="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1003"
+     inkscape:window-height="1004"
      inkscape:window-x="0"
-     inkscape:window-y="26"
+     inkscape:window-y="28"
      inkscape:window-maximized="1"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-center="true"
@@ -419,7 +419,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -453,7 +453,7 @@
          y="20.389944"
          style="font-size:2.82222223px;stroke-width:0.26458332">master secret: <tspan
    style="font-style:italic;font-size:2.82222223px"
-   id="tspan11987">k·8 bit</tspan></tspan></text>
+   id="tspan11987">k·32 bit</tspan></tspan></text>
     <path
        style="fill:#0068ff;fill-opacity:0.19018405;stroke:#000000;stroke-width:0.27253911;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 156.26818,37.853249 v 5.727462 h 23.72746 v -5.727462 z"
@@ -607,17 +607,6 @@
        d="M 66.186558,65.977587 78.062153,86.303748"
        id="path15032"
        inkscape:connector-curvature="0" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="180.60651"
-       y="84.050339"
-       id="text4522-4-0"><tspan
-         sodipodi:role="line"
-         id="tspan4520-3-2"
-         x="180.60651"
-         y="84.050339"
-         style="font-size:2.82222223px;stroke-width:0.26458332">block: 8 bit</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -930,7 +919,62 @@
              height="1428.7324"
              x="-96.901405"
              y="-4.2409081" /></flowRegion><flowPara
-           id="flowPara34774"></flowPara></flowRoot>    </g>
+           id="flowPara34774" /></flowRoot>      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="40.99115"
+         y="203.70592"
+         id="text34645-8-3"><tspan
+           sodipodi:role="line"
+           id="tspan34643-9-6"
+           x="40.99115"
+           y="203.70592"
+           style="font-size:2.46944451px;stroke-width:0.26458332">8 bit</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="53.161995"
+         y="203.70592"
+         id="text34645-8-3-7"><tspan
+           sodipodi:role="line"
+           id="tspan34643-9-6-5"
+           x="53.161995"
+           y="203.70592"
+           style="font-size:2.46944451px;stroke-width:0.26458332">8 bit</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="35.066929"
+         y="93.162575"
+         id="text34645-8-3-3"><tspan
+           sodipodi:role="line"
+           id="tspan34643-9-6-56"
+           x="35.066929"
+           y="93.162575"
+           style="font-size:2.46944451px;stroke-width:0.26458332">8 bit</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="55.749168"
+         y="93.162575"
+         id="text34645-8-3-3-2"><tspan
+           sodipodi:role="line"
+           id="tspan34643-9-6-56-9"
+           x="55.749168"
+           y="93.162575"
+           style="font-size:2.46944451px;stroke-width:0.26458332">8 bit</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="187.71352"
+         y="93.162575"
+         id="text34645-8-3-3-1"><tspan
+           sodipodi:role="line"
+           id="tspan34643-9-6-56-2"
+           x="187.71352"
+           y="93.162575"
+           style="font-size:2.46944451px;stroke-width:0.26458332">8 bit</tspan></text>
+    </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker26362)"
        d="M 30.002075,106.5636 H 69.714737"
