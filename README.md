@@ -1,3 +1,6 @@
+This implementation is obsolete.
+see [Rust implementation](https://github.com/jakubtrnka/RustyShamir). That will come in the future.
+
 # Shamir's secret sharing scheme for HD-bitcoin wallets
 
 [Shamir's secret sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) enables to split some secret between multiple parties in a secure way through the use of *shares*. In order to reconstruct original secret from shares, specific number of those shares is required (reconstruction threshold), while if not enough shares is available, no information about the secret is revealed.
